@@ -1,0 +1,7 @@
+.python-version
+API/__init__.py
+API/app/__pycache__
+API/app/*/__pycache__
+API/app/*/__init__.py
+
+db/data

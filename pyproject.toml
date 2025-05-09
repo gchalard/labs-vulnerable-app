@@ -1,0 +1,16 @@
+[project]
+name = "labs-vulnerable-app"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "flask",
+    "python-keycloak",
+    "pyjwt",
+    "environ",
+    "Flask-SQLAlchemy",
+    "flask-migrate",
+    "dotenv",
+    "psycopg2"
+]
