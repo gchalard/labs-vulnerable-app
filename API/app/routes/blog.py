@@ -34,4 +34,51 @@ def create_blog():
             "title": blog.title,
             "author": get_author(blog.author_id)
         }
-    )
+    ), 201
+    
+@blog_bp.route('/<int:blog_id>', methods=['GET'])
+def get_blog(blog_id: int):
+    blog = Blog.query.filter_by(id=blog_id).first()
+    if not blog:
+        return jsonify({"message": "Blog not found"}, 404)
+    
+    return jsonify(
+        {
+            "id": blog.id,
+            "title": blog.title,
+            "content": blog.content,
+            "author": get_author(blog.author_id)
+        }
+    ), 200
+    
+@blog_bp.route('/<int:blog_id>', methods=['DELETE'])
+def delete_blog(blog_id: int):
+    blog = Blog.query.filter_by(id=blog_id).first()
+    db.session.delete(blog)
+    db.session.commit()
+    
+    return jsonify(
+        {
+            "id": blog.id,
+            "title": blog.title,
+            "content": blog.content,
+            "author": get_author(blog.author_id)
+        }
+    ),  200
+    
+@blog_bp.route('/<int:blog_id>', methods=['PUT'])
+def update_blog(blog_id: int):
+    data = request.get_json()
+    blog = Blog.query.filter_by(id=blog_id).first()
+    blog.title = data["title"]
+    blog.content = data["content"]
+    db.session.commit()
+    
+    return jsonify(
+        {
+            "id": blog.id,
+            "title": blog.title,
+            "content": blog.content,
+            "author": get_author(blog.author_id)
+        }
+    ), 200
