@@ -71,6 +71,7 @@ def delete_blog(blog_id: int):
     ),  200
     
 @blog_bp.route('/<int:blog_id>', methods=['PUT'])
+@authenticate(roles=["admin"], author_getter=author_getter)
 def update_blog(blog_id: int):
     data = request.get_json()
     blog = Blog.query.filter_by(id=blog_id).first()
