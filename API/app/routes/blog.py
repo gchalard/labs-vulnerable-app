@@ -6,6 +6,9 @@ from app.utils.db import get_author
 
 blog_bp = Blueprint('blog', __name__)
 
+def author_getter(blog_id: int): 
+    return Blog.query.filter_by(id=blog_id).first().author_id
+
 @blog_bp.route('/', methods=['GET'])
 def get_blogs():
     blogs = Blog.query.with_entities(Blog.id, Blog.title, Blog.author_id).all()
@@ -21,7 +24,7 @@ def get_blogs():
     )
     
 @blog_bp.route('/', methods=['POST'])
-# @authenticate()
+@authenticate(roles=["admin", "user"])
 def create_blog():
     data = request.get_json()
     blog = Blog(**data)
@@ -52,6 +55,7 @@ def get_blog(blog_id: int):
     ), 200
     
 @blog_bp.route('/<int:blog_id>', methods=['DELETE'])
+@authenticate(roles=["admin"], author_getter=get_author)
 def delete_blog(blog_id: int):
     blog = Blog.query.filter_by(id=blog_id).first()
     db.session.delete(blog)
