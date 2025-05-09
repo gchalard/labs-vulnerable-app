@@ -1,4 +1,11 @@
 services:
+
+  api: 
+    image: vuln-app:0.0
+    environment:
+      DB_URI: postgresql://user:password@postgres:5432/db
+    ports:
+      - 1234:5000
   keycloak:
     image: quay.io/keycloak/keycloak
     environment:
