@@ -14,7 +14,7 @@ class Config:
                 {"name": "id", "type": "serial", "constraints": "primary key"},
                 {"name": "title", "type": "varchar(100)", "constraints": "not null"},
                 {"name": "content", "type": "text", "constraints": "not null"},
-                {"name": "author_id", "type": "varchar(36)", "constraints": "REFERENCES user_attribute(id)"}
+                {"name": "author_id", "type": "varchar(36)", "constraints": "REFERENCES user_entity(id)"}
             ]
         },
         {
@@ -23,7 +23,7 @@ class Config:
                 {"name": "id", "type": "serial", "constraints": "primary key"},
                 {"name": "content", "type": "text", "constraints": "not null"},
                 {"name": "blog_id", "type": "int", "constraints": "not null"},
-                {"name": "author_id", "type": "varchar(36)", "constraints": "REFERENCES user_attribute(id)"}
+                {"name": "author_id", "type": "varchar(36)", "constraints": "REFERENCES user_entity(id)"}
             ]
         }
     ]
@@ -35,7 +35,7 @@ class TestConfig(Config):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     TABLES = [
         {
-            "name": "user_attribute",
+            "name": "user_entity",
             "columns": [
                 {"name": "id", "type": "varchar(36)", "constraints": "primary key"},
                 {"name": "name", "type": "varchar(255)", "constraints": "not null"},
@@ -52,7 +52,7 @@ class TestConfig(Config):
                 {"name": "id", "type": "serial", "constraints": "primary key"},
                 {"name": "title", "type": "varchar(100)", "constraints": "not null"},
                 {"name": "content", "type": "text", "constraints": "not null"},
-                {"name": "author_id", "type": "varchar(36)", "constraints": "REFERENCES user_attribute(id)"}
+                {"name": "author_id", "type": "varchar(36)", "constraints": "REFERENCES user_entity(id)"}
             ]
         }
     ]

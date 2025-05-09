@@ -19,3 +19,19 @@ def get_blogs():
             } for blog in blogs
         ]
     )
+    
+@blog_bp.route('/', methods=['POST'])
+# @authenticate()
+def create_blog():
+    data = request.get_json()
+    blog = Blog(**data)
+    db.session.add(blog)
+    db.session.commit()
+    
+    return jsonify(
+        {
+            "id": blog.id,
+            "title": blog.title,
+            "author": get_author(blog.author_id)
+        }
+    )

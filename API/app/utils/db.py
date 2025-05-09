@@ -1,5 +1,6 @@
 import psycopg2
 from app.extensions import db
+from app.models import UserEntity
 
 def get_author(author_id: int)->str:
     """
@@ -11,7 +12,7 @@ def get_author(author_id: int)->str:
     Returns:
         str: The username of the author
     """
-    return db.session.query(db.UserAttribute).filter_by(user_id=author_id).first().name
+    return db.session.query(UserEntity).filter_by(id=author_id).first().username
 
 
 def init_db(db_uri: str, tables: list[dict]):
