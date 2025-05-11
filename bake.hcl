@@ -5,12 +5,16 @@ group "default" {
         "front",
         "keycloak"
     ]
+}
+
+target "common" {
     labels = {
         "org.opencontainers.image.source" = "https://github.com/gchalard/labs-vulnerable-app"
     }
 }
+
 target "API" {
-    inherits = ["default"]
+    inherits = ["common"]
     context = "./API"
     dockerfile = "Dockerfile"
     tags =[
@@ -19,7 +23,7 @@ target "API" {
 }
 
 target "db" {
-    inherits = ["default"]
+    inherits = ["common"]
     context = "./db"
     dockerfile = "Dockerfile"
     tags =[
@@ -28,7 +32,7 @@ target "db" {
 }
 
 target "front" {
-    inherits = ["default"]
+    inherits = ["common"]
     context = "./frontend"
     dockerfile = "Dockerfile"
     tags =[
@@ -37,7 +41,7 @@ target "front" {
 }
 
 target "keycloak" {
-    inherits = ["default"]
+    inherits = ["common"]
     context = "./idp"
     dockerfile = "Dockerfile"
     tags =[
