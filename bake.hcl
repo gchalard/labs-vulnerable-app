@@ -8,9 +8,9 @@ group "default" {
 }
 
 group "common" {
-    labels = [
+    labels = {
         "org.opencontainers.image.source" = "https://github.com/gchalard/labs-vulnerable-app"
-    ]
+    }
 }
 
 target "API" {
