@@ -1,8 +1,9 @@
 group "default" {
     targets = [
         "API",
-        # "db",
-        "front"
+        "db",
+        "front",
+        "keycloak"
     ]
 }
 
@@ -27,5 +28,13 @@ target "front" {
     dockerfile = "Dockerfile"
     tags =[
         "ghcr.io/gchalard/vulnerable-app-front:latest"
+    ]
+}
+
+target "keycloak" {
+    context = "./idp"
+    dockerfile = "Dockerfile"
+    tags =[
+        "ghcr.io/gchalard/vulnerable-app-kc:latest"
     ]
 }

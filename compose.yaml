@@ -8,15 +8,18 @@ services:
       - 1234:5000
   keycloak:
     image: ghcr.io/gchalard/vulnerable-app-kc:latest
-    environment:
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
-      KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://postgres:5432/db
-      KC_DB_USERNAME: user
-      KC_DB_PASSWORD: password
-      KC_HTTP_ENABLED: true
-      KC_HOSTNAME_STRICT: false
+    # environment:
+    #   KEYCLOAK_ADMIN: admin
+    #   KEYCLOAK_ADMIN_PASSWORD: admin
+    #   KC_DB: postgres
+    #   KC_DB_URL: jdbc:postgresql://postgres:5432/db
+    #   KC_DB_USERNAME: user
+    #   KC_DB_PASSWORD: password
+    #   KC_HTTP_ENABLED: true
+    #   KC_HOSTNAME_STRICT: false
+    #   KEYCLOAK_IMPORT: /opt/keycloak/data/import/realm.json
+    # volumes:
+    #   - ./idp/realm.json:/opt/keycloak/data/import/realm.json
 
     command: start
     ports:
@@ -32,10 +35,8 @@ services:
 
   postgres:
     image: ghcr.io/gchalard/vulnerable-app-db:latest
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: db
+    volumes:
+      - ./db/data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U user -d db"]
       interval: 10s
