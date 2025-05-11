@@ -1,7 +1,7 @@
 group "default" {
     targets = [
         "API",
-        "db",
+        # "db",
         "front",
         "keycloak"
     ]

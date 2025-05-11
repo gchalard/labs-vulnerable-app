@@ -56,7 +56,7 @@ def get_blog(blog_id: int):
     ), 200
     
 @blog_bp.route('/<int:blog_id>', methods=['DELETE'])
-@authenticate(roles=["admin"], author_getter=get_author)
+@authenticate(roles=["admin"], author_getter=author_getter)
 def delete_blog(blog_id: int):
     blog = Blog.query.filter_by(id=blog_id).first()
     db.session.delete(blog)

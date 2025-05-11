@@ -23,7 +23,11 @@ const BlogDetail = () => {
   };
 
   const handleDelete = async () => {
-    await api.delete(`/${id}`);
+    await api.delete(`/blogs/${id}`, {
+      headers: {
+        Authorization: `Bearer ${keycloak.token}`,
+      },
+    });
     navigate('/');
   };
 
