@@ -10,7 +10,6 @@ target "API" {
     context = "./API"
     dockerfile = "Dockerfile"
     tags =[
-        "vuln-app:0.0",
         "ghcr.io/gchalard/vulnerable-app-api:latest"
     ]
 }
