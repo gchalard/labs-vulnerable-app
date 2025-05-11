@@ -12,5 +12,6 @@ dependencies = [
     "Flask-SQLAlchemy",
     "flask-migrate",
     "dotenv",
-    "psycopg2"
+    "psycopg2",
+    "flask-cors"
 ]

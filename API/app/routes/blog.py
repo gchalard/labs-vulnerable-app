@@ -50,7 +50,8 @@ def get_blog(blog_id: int):
             "id": blog.id,
             "title": blog.title,
             "content": blog.content,
-            "author": get_author(blog.author_id)
+            "author": get_author(blog.author_id),
+            "author_id": blog.author_id
         }
     ), 200
     
