@@ -15,6 +15,7 @@ jobs:
               with:
                 username: gchalard
                 password: ${{ secrets.GITHUB_TOKEN }}
+                registry: ghcr.io
             - name: Build and push
               uses: docker/bake-action@v6
               with:
