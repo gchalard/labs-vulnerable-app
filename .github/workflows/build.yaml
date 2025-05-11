@@ -17,4 +17,5 @@ jobs:
               with:
                 push: true
                 files: bake.hcl
+                github-token: ${{ secrets.GITHUB_TOKEN }}
             
