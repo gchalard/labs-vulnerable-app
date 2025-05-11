@@ -7,6 +7,7 @@ def create_app(config: Config = Config):
     app = Flask(__name__)
     app.config.from_object(Config)
     
+    CORS(app)
     
     db.init_app(app)
     migrate.init_app(app, db)
