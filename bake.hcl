@@ -11,6 +11,12 @@ group "common" {
     labels = {
         "org.opencontainers.image.source" = "https://github.com/gchalard/labs-vulnerable-app"
     }
+    targets = [
+        "API",
+        # "db",
+        "front",
+        "keycloak"
+    ]
 }
 
 target "API" {
