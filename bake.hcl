@@ -1,7 +1,8 @@
 group "default" {
     targets = [
         "API",
-        "db"
+        # "db",
+        "front"
     ]
 }
 
@@ -19,5 +20,13 @@ target "db" {
     dockerfile = "Dockerfile"
     tags =[
         "ghcr.io/gchalard/vulnerable-app-db:latest"
+    ]
+}
+
+target "front" {
+    context = "./frontend"
+    dockerfile = "Dockerfile"
+    tags =[
+        "ghcr.io/gchalard/vulnerable-app-front:latest"
     ]
 }

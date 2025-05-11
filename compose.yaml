@@ -25,17 +25,17 @@ services:
       postgres:
         condition: service_healthy
 
+  frontend:
+    image: ghcr.io/gchalard/vulnerable-app-front:latest
+    ports:
+      - 2345:3000
+
   postgres:
     image: ghcr.io/gchalard/vulnerable-app-db:latest
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
       POSTGRES_DB: db
-    ports:
-      - 5432:5432
-    volumes:
-      - ./db/data:/var/lib/postgresql/data
-      # - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U user -d db"]
       interval: 10s
