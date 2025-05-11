@@ -3,10 +3,12 @@ import { Typography, Button } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useKeycloak } from '@react-keycloak/web';
 import api from '../services/api';
+import BlogModal from '../components/BlogModal';
 
 const BlogDetail = () => {
   const { id } = useParams();
   const [blog, setBlog] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
   const { keycloak } = useKeycloak();
   const navigate = useNavigate();
 
@@ -19,7 +21,7 @@ const BlogDetail = () => {
   }, [id]);
 
   const handleEdit = () => {
-    navigate(`/edit-blog/${id}`);
+    setModalOpen(true);
   };
 
   const handleDelete = async () => {
@@ -29,6 +31,14 @@ const BlogDetail = () => {
       },
     });
     navigate('/');
+  };
+
+  const handleSuccess = () => {
+    const fetchBlog = async () => {
+      const response = await api.get(`/blogs/${id}`);
+      setBlog(response.data);
+    };
+    fetchBlog();
   };
 
   if (!blog) {
@@ -46,7 +56,7 @@ const BlogDetail = () => {
       <Typography variant="subtitle1" gutterBottom>
         Author: {blog.author}
       </Typography>
-      {keycloak.authenticated && keycloak.tokenParsed && 
+      {keycloak.authenticated && keycloak.tokenParsed && (
         (keycloak.tokenParsed?.realm_access?.roles.includes('admin') || keycloak.tokenParsed?.sub === blog.author_id) && (
           <>
             <Button variant="contained" color="primary" onClick={handleEdit}>
@@ -56,7 +66,14 @@ const BlogDetail = () => {
               Delete
             </Button>
           </>
-        )}
+        )
+      )}
+      <BlogModal
+        open={modalOpen}
+        handleClose={() => setModalOpen(false)}
+        blogId={id}
+        onSuccess={handleSuccess}
+      />
     </div>
   );
 };

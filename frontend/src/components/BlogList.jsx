@@ -3,9 +3,11 @@ import { List, ListItem, ListItemText, Button, Typography } from '@mui/material'
 import { useKeycloak } from '@react-keycloak/web';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
+import BlogModal from '../components/BlogModal';
 
 const BlogList = () => {
   const [blogs, setBlogs] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
   const { keycloak } = useKeycloak();
   const navigate = useNavigate();
 
@@ -21,8 +23,16 @@ const BlogList = () => {
     if (!keycloak.authenticated) {
       keycloak.login();
     } else {
-      navigate('/blogs');
+      setModalOpen(true);
     }
+  };
+
+  const handleSuccess = () => {
+    const fetchBlogs = async () => {
+      const response = await api.get('/blogs/');
+      setBlogs(response.data);
+    };
+    fetchBlogs();
   };
 
   return (
@@ -40,6 +50,11 @@ const BlogList = () => {
           </ListItem>
         ))}
       </List>
+      <BlogModal
+        open={modalOpen}
+        handleClose={() => setModalOpen(false)}
+        onSuccess={handleSuccess}
+      />
     </div>
   );
 };
