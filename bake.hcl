@@ -11,6 +11,11 @@ target "common" {
     labels = {
         "org.opencontainers.image.source" = "https://github.com/gchalard/labs-vulnerable-app"
     }
+    platforms = [
+        "linux/amd64",
+        "linux/arm64", 
+        "linux/arm/v7"
+    ]
 }
 
 target "API" {
