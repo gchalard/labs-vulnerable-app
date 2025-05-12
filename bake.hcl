@@ -9,7 +9,7 @@ group "default" {
 
 target "common" {
     labels = {
-        "org.opencontainers.image.source" = "https://github.com/gchalard/labs-vulnerable-app"
+        "org.opencontainers.image.source" = "https://github.com/gchalard/labs-vulnerable-app.git"
     }
     platforms = [
         "linux/amd64",
