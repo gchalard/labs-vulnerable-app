@@ -9,5 +9,8 @@ ENV KC_DB_PASSWORD=password
 ENV KC_HTTP_ENABLED=true
 ENV KC_HOSTNAME_STRICT=false
 ENV KEYCLOAK_IMPORT=/opt/keycloak/data/import/realm.json
+ENV KC_HEALTH_ENABLED=true
 
 COPY realm.json /opt/keycloak/data/import/realm.json
+
+COPY healthcheck.sh /opt/keycloak/bin/healthcheck.sh
